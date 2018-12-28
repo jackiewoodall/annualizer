@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html>
+<body>
+
+<h2>Annualizer</h2>
+<p>Calculate the annual rate of return</p>
+
+<h3>By Start/End Dates</h3>
+
+<form id="premiumForm" onsubmit="return byDates()">
+Premium:<br>
+<input type="number" name="premium" id="premium" step="0.01" required>
+<br>
+Strike:<br>
+<input type="number" name="strike" id="strike" step="0.01" required>
+<br>
+Start Date:<br>
+<input type="date" id="startdate">
+<br>
+End Date:<br>
+<input type="date" id="enddate">
+<br><br>
+<input type="submit">
+</form>
+
+<p id="resultsDates"></p>
+
+<script>
+function byDates() {
+	var theForm = document.forms["premiumForm"];
+	var premium = theForm.elements["premium"].value;
+	var strike = theForm.elements["strike"].value;
+	
+	var percentreturn = premium/strike * 100
+	
+	document.getElementById('resultsDates').innerHTML = "Percent Return = " + premium + "/" + strike + " = " + percentreturn.toFixed(2) + '%';
+	
+	var sd = theForm.elements["startdate"].value;
+	var ed = theForm.elements["enddate"].value;
+	var dte = Math.floor(( Date.parse(ed) - Date.parse(sd) ) / 86400000); 
+	
+	document.getElementById('resultsDates').innerHTML += "<br>" + "DTE = " + dte + " days"
+	
+	annualreturn = (percentreturn * (365.0/dte))
+	
+	document.getElementById('resultsDates').innerHTML += "<br>" + "Annual Return = " + annualreturn.toFixed(2) + '%';
+	
+	return false;
+}
+</script>
+
+<hr>
+
+<h3>By DTE</h3>
+
+<form id="dteForm" onsubmit="return byDTE()">
+Premium:<br>
+<input type="number" name="premium" id="premium" step="0.01" required>
+<br>
+Strike:<br>
+<input type="number" name="strike" id="strike" step="0.01" required>
+<br>
+DTE:<br>
+<input type="number" id="dte" step="1" required>
+<br>
+<br><br>
+<input type="submit">
+</form>
+
+<p id="resultsDTE"></p>
+
+<script>
+function byDTE() {
+	var theForm = document.forms["dteForm"];
+	var premium = theForm.elements["premium"].value;
+	var strike = theForm.elements["strike"].value;
+	
+	var percentreturn = premium/strike * 100
+	
+	document.getElementById('resultsDTE').innerHTML = "Percent Return = " + premium + "/" + strike + " = " + percentreturn.toFixed(2) + '%';
+	
+	var dte = theForm.elements["dte"].value;
+	
+	document.getElementById('resultsDTE').innerHTML += "<br>" + "DTE = " + dte + " days"
+	
+	annualreturn = (percentreturn * (365.0/dte))
+	
+	document.getElementById('resultsDTE').innerHTML += "<br>" + "Annual Return = " + annualreturn.toFixed(2) + '%';
+	
+	return false;
+}
+</script>
+
+<hr>
+
+<h3>By Return & DTE</h3>
+
+<form id="returnForm" onsubmit="return byReturn()">
+% Return:<br>
+<input type="number" name="return" id="return" step="0.01" required>
+<br>
+DTE:<br>
+<input type="number" id="dte" step="1" required>
+<br>
+<br><br>
+<input type="submit">
+</form>
+
+<p id="resultsReturn"></p>
+
+<script>
+function byReturn() {
+	var theForm = document.forms["returnForm"];
+	var percentreturn = 1.0 * theForm.elements["return"].value;
+	
+	document.getElementById('resultsReturn').innerHTML = "Percent Return = " + percentreturn.toFixed(2) + '%';
+	
+	var dte = theForm.elements["dte"].value;
+	
+	document.getElementById('resultsReturn').innerHTML += "<br>" + "DTE = " + dte + " days"
+	
+	annualreturn = (percentreturn * (365.0/dte))
+	
+	document.getElementById('resultsReturn').innerHTML += "<br>" + "Annual Return = " + annualreturn.toFixed(2) + '%';
+	
+	return false;
+}
+</script>
+
+</body>
+</html>
