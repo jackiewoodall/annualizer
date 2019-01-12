@@ -127,5 +127,34 @@ function byReturn() {
 }
 </script>
 
+<hr>
+
+<h3>Date Diff</h3>
+<form id="dateDiffForm" onsubmit="return dateDiff()">
+Start Date:<br>
+<input type="date" id="startdate">
+<br>
+End Date:<br>
+<input type="date" id="enddate">
+<br><br>
+<input type="submit">
+</form>
+
+<p id="resultsDateDiff"></p>
+
+<script>
+function dateDiff() {
+	var theForm = document.forms["dateDiffForm"];
+	
+	var sd = theForm.elements["startdate"].value;
+	var ed = theForm.elements["enddate"].value;
+	var dte = Math.floor(( Date.parse(ed) - Date.parse(sd) ) / 86400000); 
+	
+	document.getElementById('resultsDateDiff').innerHTML += "<br>" + "Days = " + dte + " days"
+	
+	return false;
+}
+
+</script>
 </body>
 </html>
