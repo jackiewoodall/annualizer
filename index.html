@@ -150,11 +150,40 @@ function dateDiff() {
 	var ed = theForm.elements["enddate"].value;
 	var dte = Math.floor(( Date.parse(ed) - Date.parse(sd) ) / 86400000); 
 	
-	document.getElementById('resultsDateDiff').innerHTML += "<br>" + "Days = " + dte + " days"
+	document.getElementById('resultsDateDiff').innerHTML += "<br>" + "Days = " + dte + " days";
 	
 	return false;
 }
+</script>
+	
+<hr>
 
+<h3>Date Add</h3>
+
+<form id="dateAddForm" onsubmit="return dateAdd()">
+Start Date:<br>
+<input type="date" id="startdate">
+<br>
+Days:<br>
+<input type="number" id="days" step="1" required>
+<br><br>
+<input type="submit">
+</form>
+
+<p id="resultsDateAdd"></p>
+
+<script>
+function dateAdd() {
+	var theForm = document.forms["dateAddForm"];
+	
+	var sd = theForm.elements["startdate"].value;
+	var days = theForm.elements["days"].value;
+	var ed = new Date(Date.parse(sd) + days * 86400000)
+	
+	document.getElementById('resultsDateAdd').innerHTML += "<br>" + "Date = " + ed.toUTCString()
+	
+	return false;
+}
 </script>
 </body>
 </html>
